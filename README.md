@@ -3,7 +3,7 @@ Terraform module which creates DBFS resources on Alibaba Cloud.
 terraform-alicloud-dbfs
 =====================================================================
 
-English | [简体中文](README-CN.md)
+English | [简体中文](https://github.com/terraform-alicloud-modules/terraform-alicloud-dbfs/blob/main/README-CN.md)
 
 This module is used to create DBFS resources on Alibaba Cloud.
 
@@ -18,18 +18,22 @@ These types of resources are supported:
 
 ```hcl
 module "example" {
-  source                  = "terraform-alicloud-modules/dbfs/alicloud"
+  source = "terraform-alicloud-modules/dbfs/alicloud"
   #alicloud_dbfs_service_linked_role
-  product_name      = "AliyunServiceRoleForDbfs"
+  create_service_linked_role = true
+  product_name               = "AliyunServiceRoleForDbfs"
   #alicloud_dbfs_instance
+  create_instance   = true
   category          = "standard"
   zone_id           = "cn-beijing-k"
   performance_level = "PL1"
   instance_name     = "tf-test-dbfs"
   size              = 100
   #alicloud_dbfs_instance_attachment
-  ecs_id            = "your_ecs_id"
+  create_instance_attachment = true
+  ecs_id                     = "your_ecs_id"
   #alicloud_dbfs_snapshot
+  create_snapshot   = true
   snapshot_name     = "tf-test-dbfs"
   description       = "tf-test-dbfs"
   retention_days    = 30
@@ -50,7 +54,7 @@ module "example" {
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | > = 1.0.11 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | > = 0.13 |
 | <a name="requirement_alicloud"></a> [alicloud](#requirement\_alicloud) | > = 1.157.0 |
 
 ## Providers
