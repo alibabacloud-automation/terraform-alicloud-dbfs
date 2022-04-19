@@ -2,7 +2,7 @@
 # Dbfs service-linked roles(SLR)
 #################
 variable "create_service_linked_role" {
-  description = "Controls if service linked role should be created"
+  description = "Controls if service linked role should be created."
   type        = bool
   default     = false
 }
@@ -10,16 +10,28 @@ variable "create_service_linked_role" {
 variable "product_name" {
   description = "(Required, ForceNew) The product name for SLR. Dbfs can automatically create the following service-linked roles: AliyunServiceRoleForDbfs."
   type        = string
-  default     = ""
+  default     = "AliyunServiceRoleForDbfs"
 }
 
 #################
 # DBFS Instance
 #################
 variable "create_instance" {
-  description = "Controls if instance should be created"
+  description = "Controls if instance should be created."
   type        = bool
   default     = false
+}
+
+variable "instance_name" {
+  description = "The type of the Database file system."
+  type        = string
+  default     = "standard"
+}
+
+variable "category" {
+  description = "(Required) The name of the Database file system."
+  type        = string
+  default     = ""
 }
 
 variable "zone_id" {
@@ -32,32 +44,31 @@ variable "performance_level" {
   description = "(ForceNew) The performance level of the Database file system. Valid values: PL0, PL1, PL2, PL3."
   type        = string
   default     = "PL1"
-
   validation {
     condition     = contains(["PL0", "PL1", "PL2", "PL3"], var.performance_level)
     error_message = "Allowed values are PL0, PL1, PL2 or PL3."
   }
 }
 
-variable "instance_name" {
-  description = "(Required) The name of the Database file system."
-  type        = string
-  default     = ""
-}
-
 variable "size" {
   description = "(Required) The size Of the Database file system. Unit: GiB."
   type        = number
-  default     = null
+  default     = 20
 }
 
 #################
 # DBFS Instance Attachment
 #################
 variable "create_instance_attachment" {
-  description = "Controls if instance attachment should be created"
+  description = "Controls if instance attachment should be created."
   type        = bool
   default     = false
+}
+
+variable "instance_id" {
+  description = "The id of dbfs instance."
+  type        = string
+  default     = ""
 }
 
 variable "ecs_id" {
@@ -70,15 +81,9 @@ variable "ecs_id" {
 #  DBFS Snapshot
 #################
 variable "create_snapshot" {
-  description = "Controls if snapshot should be created"
+  description = "Controls if snapshot should be created."
   type        = bool
   default     = false
-}
-
-variable "instance_id" {
-  description = "The id of dbfs instance."
-  type        = string
-  default     = ""
 }
 
 variable "snapshot_name" {
@@ -96,11 +101,11 @@ variable "description" {
 variable "retention_days" {
   description = "(ForceNew) The retention time of the snapshot. Unit: days. Snapshots are automatically released after the retention time expires. Valid values: 1 to 65536."
   type        = number
-  default     = null
+  default     = 1
 }
 
 variable "force" {
   description = "Whether to force deletion of snapshots."
   type        = bool
-  default     = null
+  default     = false
 }

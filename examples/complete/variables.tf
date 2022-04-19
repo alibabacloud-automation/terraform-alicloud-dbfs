@@ -4,13 +4,13 @@
 variable "instance_name" {
   description = "(Required) The name of the Database file system."
   type        = string
-  default     = "tf-test-dbfs"
+  default     = "tf-testacc-name"
 }
 
 variable "size" {
   description = "(Required) The size Of the Database file system. Unit: GiB."
   type        = number
-  default     = 100
+  default     = 20
 }
 
 #################
