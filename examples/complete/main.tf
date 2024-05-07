@@ -1,9 +1,12 @@
+provider "alicloud" {
+  region = "cn-hangzhou"
+}
 locals {
   zone_id = "cn-hangzhou-i"
 }
 
 data "alicloud_images" "default" {
-  name_regex  = "^centos_8"
+  name_regex  = "^aliyun_2_1903_x64_20G_alibase_20231221.vhd"
   owners      = "system"
   most_recent = true
 }
@@ -13,17 +16,17 @@ data "alicloud_instance_types" "default" {
   availability_zone    = local.zone_id
 }
 
-module "vpc" {
-  source             = "alibaba/vpc/alicloud"
-  create             = true
-  vpc_cidr           = "172.16.0.0/16"
-  vswitch_cidrs      = ["172.16.0.0/21"]
-  availability_zones = [local.zone_id]
+data "alicloud_vpcs" "default" {
+  name_regex = "^default-NODELETING$"
+}
+data "alicloud_vswitches" "default" {
+  vpc_id  = data.alicloud_vpcs.default.ids[0]
+  zone_id = local.zone_id
 }
 
 module "security_group" {
   source = "alibaba/security-group/alicloud"
-  vpc_id = module.vpc.this_vpc_id
+  vpc_id = data.alicloud_vpcs.default.ids[0]
 }
 
 module "ecs_instance" {
@@ -33,7 +36,7 @@ module "ecs_instance" {
 
   instance_type        = data.alicloud_instance_types.default.instance_types.0.id
   image_id             = data.alicloud_images.default.images.0.id
-  vswitch_ids          = [module.vpc.this_vswitch_ids[0]]
+  vswitch_ids          = [data.alicloud_vswitches.default.ids.0]
   security_group_ids   = [module.security_group.this_security_group_id]
   system_disk_category = "cloud_essd"
 
