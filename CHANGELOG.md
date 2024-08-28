@@ -1,4 +1,7 @@
-## 1.1.0 (Unreleased)
+## 1.2.0 (Unreleased)
+## 1.1.0 (2024-08-28)
+
+- module/alicloud_dbfs_instance: update fs_name; example/complete: improve the examples; [GH-5](https://github.com/alibabacloud-automation/terraform-alicloud-dbfs/pull/5/files)
 
 ## 1.0.0 (2022-03-29)
 
