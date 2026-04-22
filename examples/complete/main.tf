@@ -25,13 +25,15 @@ data "alicloud_vswitches" "default" {
 }
 
 module "security_group" {
-  source = "alibaba/security-group/alicloud"
-  vpc_id = data.alicloud_vpcs.default.ids[0]
+  source  = "alibaba/security-group/alicloud"
+  version = "3.0.0"
+  vpc_id  = data.alicloud_vpcs.default.ids[0]
 }
 
 module "ecs_instance" {
   source = "alibaba/ecs-instance/alicloud"
 
+  version             = "3.0.0"
   number_of_instances = 1
 
   instance_type        = data.alicloud_instance_types.default.instance_types.0.id
