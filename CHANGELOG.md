@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/alibabacloud-automation/terraform-alicloud-dbfs/compare/v2.0.0...v2.0.1) (2026-04-22)
+
+
+### Bug Fixes
+
+* update version of the dependency module ([0617c92](https://github.com/alibabacloud-automation/terraform-alicloud-dbfs/commit/0617c922794f8ab6195333e72d7433e0bd881b0c))
+
 ## [2.0.0](https://github.com/alibabacloud-automation/terraform-alicloud-dbfs/compare/v1.1.1...v2.0.0) (2026-04-22)
 
 
